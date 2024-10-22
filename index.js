@@ -2,7 +2,8 @@ const express = require("express");
 const path = require("path");  //  the provided code to handle file paths related to the EJS templates.
 const cookieParser = require("cookie-parser");
 const { ConnectToMongoDb } = require("./connection");
-const { restrictToLoggedInUserOnly, checkAuth } = require("./CookieMiddleware/auth");
+
+// const { restrictToLoggedInUserOnly, checkAuth } = require("./CookieMiddleware/auth");
 const URL = require("./Model/url");
 
 const urlRoute = require("./routes/url"); //CRUD operations
@@ -21,12 +22,12 @@ app.set('views',path.resolve('./views'));
 
 app.use(express.json()); 
 app.use(express.urlencoded({extended: false}));
-app.use(cookieParser());
+// app.use(cookieParser());
 
 
-app.use("/url", restrictToLoggedInUserOnly, urlRoute);
+app.use("/url", urlRoute);
 app.use("/user",userRoute);
-app.use("/",checkAuth, staticRoute);
+app.use("/" ,staticRoute);
 
 app.get("/:shortId", async(req, res)=>{
     const shortId = req.params.shortId;
