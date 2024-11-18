@@ -1,22 +1,130 @@
 <!DOCTYPE html>
 <html lang="en">
-<head> <style>
-    body {
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    }
+<head> 
+    <style>
+    
+        *{
+            padding: 0%;
+            margin: 0%;
+        }
+        body{
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color:  whitesmoke;
+        }
+        #container{
+            position: fixed;
+            top: 20%;
+            left: 35%;
+            width:410px;
+            height:350px;
+            background-color: whitesmoke;
+            border: 1px solid black;
+            border-radius: 10px;
+        }
+        #container h1{
+         color:  steelblue;
+            text-align: left;
+            margin: .5vh  3vw;
+        }
+        form{
+            height: 44vh;
+            justify-content: space-between;
+            text-align: center;
+            align-items: center;
+            background-color: whitesmoke;
+            border-bottom-left-radius: 10px;
+            border-bottom-right-radius: 10px;
+            /* border: 1px solid grey; */
+        }
+        form h3{
+            color:grey;
+            justify-content: left;
+            text-align: left;
+            align-items: start;
+            margin: 1.4vw 0 0 3.3vw;
+            font-weight: 400;
+            font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        }
+        form h4{
+            color: black;
+            cursor: auto;
+        }
+        form h4 span{
+            color: steelblue;
+            cursor: pointer;
+        }
+        input{
+            border: 1px solid grey;
+            padding: 6px;
+            margin: 10px 0 5px 10px;
+            font-size: 16px;
+            width:310px;
+            border-radius: 10px;
+        }
+        input::placeholder{
+            text-align: center;
+        }
+        #togglePassword {
+            position: absolute;
+            right: 46px;
+            top: 192px;
+            cursor: pointer;
+        }
+        button{
+            width: 100px;
+            display: block;
+            margin: 25px 160px;
+            font-size: larger;
+            border-radius: 10px;
+            padding: 9px;
+            cursor: pointer;
+            border: 1px solid black;
+            background-color:rgb(114, 157, 200);
+        }
+        button:hover{
+            background-color:rgb(185, 179, 229);
+        }
+        form a{
+            text-decoration: none;
+            color: gray;
+        }
+        form a span{
+            color: black;
+            font-weight: 400;
+        }
+       
 </style>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
 </head>
 <body>
+          <div id="container">
     <h1>Sign-In</h1>
-    <form method="post" action="/user/Login">
-        <label>Email</label>
-        <input type="String" required  name="email" placeholder="Enter Your Email">
-        <label>Password</label>
-        <input type="String" required  name="password" placeholder="Enter your password">
+       <form method="post" action="/user/Login">
+        <h3>Email</h3>
+        <input type="string" required  name="email" placeholder="Enter Your Email">
+        <h3>Password</h3>
+        <input type="string" required id="passwordInput"  name="password" placeholder="Enter your password">
+        <i class="fa-solid fa-eye" id="togglePassword"></i>
         <button type="submit">Login</button>
-    </form>
+        <a href="/signup" >Don't have account? <span> Sign-Up</span></a>
+        </form>
+</div>
 </body>
+<script>
+    const passwordInput = document.getElementById('passwordInput');
+   const togglePassword = document.getElementById('togglePassword');
+   
+   togglePassword.addEventListener('click', function() {
+     if (passwordInput.type === 'password') {
+       passwordInput.type = 'text';
+       togglePassword.classList.add('fa-eye-slash');
+     } else {
+       passwordInput.type = 'password';
+       togglePassword.classList.remove('fa-eye-slash');
+     }
+   });
+   </script>
 </html>

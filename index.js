@@ -3,7 +3,7 @@ const path = require("path");  //  the provided code to handle file paths relate
 const cookieParser = require("cookie-parser");
 const { ConnectToMongoDb } = require("./connection");
 
-// const { restrictToLoggedInUserOnly, checkAuth } = require("./CookieMiddleware/auth");
+const { restrictToLoggedInUserOnly, checkAuth} = require("./CookieMiddleware/auth");
 const URL = require("./Model/url");
 
 const urlRoute = require("./routes/url"); //CRUD operations
@@ -20,14 +20,14 @@ app.set("view engine","ejs");
 app.set('views',path.resolve('./views'));
 //Middleware
 
-app.use(express.json()); 
+app.use(express.json());
 app.use(express.urlencoded({extended: false}));
-// app.use(cookieParser());
+app.use(cookieParser());
 
-
-app.use("/url", urlRoute);
+  
+app.use("/url", restrictToLoggedInUserOnly, urlRoute);
 app.use("/user",userRoute);
-app.use("/" ,staticRoute);
+app.use("/",checkAuth, staticRoute);
 
 app.get("/:shortId", async(req, res)=>{
     const shortId = req.params.shortId;
